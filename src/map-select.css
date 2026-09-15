@@ -1,0 +1,39 @@
+.map-selection{background:#edf0e5}
+.map-selection::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 75% 10%,#f8e6b2a1,transparent 52%),radial-gradient(ellipse at 5% 90%,#bdcfc29c,transparent 55%);pointer-events:none}
+.map-selection #world{visibility:hidden}
+.map-selection #app{overflow:auto;pointer-events:auto}
+.map-selection .welcome{position:relative;left:auto;top:auto;bottom:auto;max-width:1280px;margin:2vh auto 100px;width:86%;display:grid;grid-template-columns:1fr 1.1fr;gap:8%;align-items:center}
+.map-selection #app::before,.map-selection .welcome::before{display:none}
+.map-selection h1{font-size:clamp(58px,5.6vw,86px);margin:22px 0;letter-spacing:-4px}
+.welcome-copy>p{color:#647565;font-size:17px;line-height:1.7}
+.departure{margin:25px 0 22px;padding-left:16px;border-left:2px solid #a7b898;max-width:380px}
+.departure>small{display:block;font-size:8px;letter-spacing:1.8px;color:#7d8b73;margin-bottom:8px}
+.departure>strong{font-family:Manrope,sans-serif;font-size:14px;font-weight:650}
+.departure>p{font-size:12px;color:#74806e;line-height:1.75;margin:8px 0 0}
+.map-choices{display:flex;flex-direction:column;gap:16px;pointer-events:auto}
+.map-choices-heading{display:flex;justify-content:space-between;font-size:9px;letter-spacing:2px;color:#7b8876;padding:0 3px}
+.map-card{position:relative;display:block;overflow:hidden;text-align:left;height:230px;min-height:170px;padding:0;border-radius:13px;background:#b9cec5;border:2px solid transparent;box-shadow:0 12px 35px #294d3110;transition:transform .2s,border-color .2s,box-shadow .2s}
+.map-card:hover{transform:translateY(-3px);box-shadow:0 15px 35px #294d3120}
+.map-card[aria-pressed=true]{border-color:#3e6550;box-shadow:0 0 0 3px #edf0e5,0 0 0 4px #91a78a}
+.map-art{position:absolute;inset:0;background-size:cover;background-position:center 47%;transition:transform .7s;filter:saturate(.9)}
+.map-card:hover .map-art{transform:scale(1.025)}
+.berlin-art{background-color:#b2c4bc;background-image:url('/maps/berlin.webp')}
+.frankfurt-art{background-color:#79b9c4;background-image:url('/maps/frankfurt.webp');filter:saturate(1.15)}
+.map-card::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#102d34d4,transparent 66%)}
+.map-card-caption{position:absolute;z-index:1;bottom:21px;left:24px;right:24px;display:flex;align-items:center;justify-content:space-between;color:#fffdf3}
+.map-card-caption strong{display:block;font:500 30px Manrope,sans-serif;letter-spacing:-1px}
+.map-card-caption small{display:block;font-size:8px;letter-spacing:1.8px;margin-top:7px;color:#edf5e2cc}
+.map-number{position:absolute;z-index:1;top:17px;left:20px;color:#244a4a;background:#fbfbeece;border:1px solid #ffffff70;border-radius:4px;font-size:8px;letter-spacing:1.5px;padding:7px 9px}
+.map-check{position:absolute;z-index:1;right:17px;top:17px;display:grid;place-items:center;width:24px;height:24px;border:1px solid #fff9;border-radius:50%;color:transparent}
+.map-card[aria-pressed=true] .map-check{color:#fff;background:#3e6550;border-color:#3e6550}
+.map-arrow{font-size:24px;font-weight:300}
+.map-footnote{display:flex;align-items:center;gap:8px;font-size:9px;line-height:1.6;color:#81907a;margin:0 3px}
+.map-selection .welcome-footer{position:fixed;background:linear-gradient(0deg,#edf0e5 45%,#edf0e500);padding-top:28px;bottom:20px}
+.map-selection .vtol-start{margin-top:12px}
+button:disabled{cursor:wait;opacity:.6}
+#change-city{display:block;margin-top:18px;color:#617c66;font-size:12px}
+body[data-map=frankfurt].playing .location-pill{background:#fff6dfdf}
+body[data-map=frankfurt].playing .minimap-wrap{background:#faf7e8ed}
+@media(min-width:1500px){.map-selection .welcome{margin-top:5vh}.map-card{height:260px}}
+@media(max-height:790px) and (min-width:801px){.map-selection .topbar{height:84px}.map-selection .welcome{margin-top:0}.map-card{height:195px}.map-selection h1{font-size:66px;margin:15px 0}.departure{margin:16px 0}.welcome-copy>p{margin:10px 0}.map-selection .welcome-hint{margin-top:14px}}
+@media(max-width:800px){.map-selection .welcome{width:88%;grid-template-columns:1fr;gap:30px;max-width:520px;margin:14px auto 50px}.map-selection .welcome-copy{display:contents}.map-selection .eyebrow{grid-row:1}.map-selection h1{grid-row:2;font-size:58px;margin:0;letter-spacing:-3px}.welcome-copy>p{display:none}.map-choices{grid-row:3}.map-card{height:180px}.departure{grid-row:4;margin:0}.map-selection #start{grid-row:5}.map-selection #start-vtol{grid-row:6;margin:0}.map-selection .welcome-hint{grid-row:7;margin:0}.map-selection .welcome-footer{position:relative;bottom:auto;margin:10px 6% 25px;left:auto;right:auto;padding:0}.map-selection .footer-note{display:none}.map-selection .weather{display:none}.map-selection .topbar{height:88px}.map-selection .scene-label{display:none}}

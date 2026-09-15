@@ -1,0 +1,215 @@
+/* These wrappers leave the small-pigeon HUD in its original layout. */
+.flight-panel,.tactical-stack{display:contents}
+.playing.vtol-mode.cockpit :is(.flight-panel,.tactical-stack){display:none}
+
+.playing.vtol-mode:not(.cockpit){
+  --hud-bg:rgb(7 24 29 / .8);
+  --hud-line:rgb(115 255 195 / .28);
+  --hud-green:#8dffc0;
+  --hud-cyan:#9aeeed;
+  --hud-muted:#91b9ab;
+  --hud-edge:24px;
+  --hud-bottom:80px;
+}
+.playing.vtol-mode .topbar .brand,
+.playing.vtol-mode .topbar .weather,
+.playing.vtol-mode .explore-actions{display:none!important}
+.playing.vtol-mode:not(.cockpit) .topbar{justify-content:flex-end;height:80px;padding:0 var(--hud-edge)}
+.playing.vtol-mode:not(.cockpit) .top-actions{gap:8px}
+.playing.vtol-mode:not(.cockpit) :is(.flight-panel,.tactical-stack,.controls-bar,.top-actions,.toast,#vtol-capture-hint){
+  font-family:Consolas,"SFMono-Regular",Menlo,"Liberation Mono",monospace;
+  font-variant-numeric:tabular-nums;color:var(--hud-green);
+}
+.playing.vtol-mode:not(.cockpit) :is(.flight-panel,.weapon-card,.minimap-wrap,.controls-bar,.icon-button,.toast,#vtol-capture-hint){
+  background:var(--hud-bg);border:1px solid var(--hud-line);border-radius:5px;
+  box-shadow:inset 0 0 18px #7fffc006,0 0 16px #53ffc00a;
+  backdrop-filter:blur(6px);
+}
+.playing.vtol-mode:not(.cockpit) :is(.flight-heading,.weapon-heading,.map-heading){
+  color:var(--hud-green);font:10px/1.3 Consolas,"SFMono-Regular",Menlo,"Liberation Mono",monospace;
+  letter-spacing:1.5px;text-shadow:0 0 9px #75ffb966;
+}
+.playing.vtol-mode:not(.cockpit) .icon-button{width:32px;height:32px;font-size:15px;text-shadow:0 0 7px #8dffc070}
+.playing.vtol-mode:not(.cockpit) .icon-button:hover{background:rgb(28 69 58 / .8);border-color:var(--hud-green)}
+.playing.vtol-mode:not(.cockpit) :is(button,a):focus-visible{outline:2px solid var(--hud-green);outline-offset:3px}
+
+/* Airspeed and the artificial horizon share one flight instrument. */
+.playing.vtol-mode:not(.cockpit) .flight-panel{
+  position:fixed;left:var(--hud-edge);bottom:var(--hud-bottom);width:270px;padding:13px;
+  display:grid;grid-template-columns:minmax(0,1fr) 84px;gap:13px 12px;
+}
+.playing.vtol-mode:not(.cockpit) .flight-heading:not(.hidden){
+  grid-column:1 / -1;display:flex!important;justify-content:space-between;align-items:center;
+  padding-bottom:10px;border-bottom:1px solid var(--hud-line);font-size:9px;letter-spacing:1px;
+}
+.playing.vtol-mode:not(.cockpit) .flight-heading>span:last-child{color:var(--hud-muted);font-size:8px;letter-spacing:0}
+.playing.vtol-mode:not(.cockpit) #flight-heading{color:var(--hud-cyan);font-size:11px;font-weight:400}
+.playing.vtol-mode:not(.cockpit) .flight-readout{
+  position:static;grid-column:1;grid-row:2;align-self:center;
+  min-width:0;padding:0;background:none;border:0;border-radius:0;backdrop-filter:none;
+}
+.playing.vtol-mode:not(.cockpit) #flight-state{font-size:8px;letter-spacing:.6px;color:var(--hud-muted)}
+.playing.vtol-mode:not(.cockpit) .speed{margin:3px 0 8px;color:var(--hud-muted);font-size:10px;white-space:nowrap}
+.playing.vtol-mode:not(.cockpit) .speed strong{
+  color:var(--hud-green);font-size:40px;font-weight:400;letter-spacing:-2px;
+  text-shadow:0 0 6px #8dffc099,0 0 18px #8dffc030;
+}
+.playing.vtol-mode:not(.cockpit) .flight-readout .momentum{width:100%;height:3px;margin:0;background:#8dffc018}
+.playing.vtol-mode:not(.cockpit) #momentum-fill{background:var(--hud-green);box-shadow:0 0 6px var(--hud-green)}
+.playing.vtol-mode:not(.cockpit) #flight-note{display:none}
+.playing.vtol-mode:not(.cockpit) .attitude-wrap:not(.hidden){display:contents!important}
+.playing.vtol-mode:not(.cockpit) .attitude-dial{
+  grid-column:2;grid-row:2;width:84px;height:84px;align-self:center;
+  border:1px solid #8dffc080;background:#163e43;box-shadow:0 0 12px #8dffc010;
+}
+.playing.vtol-mode:not(.cockpit) #artificial-horizon{
+  background:linear-gradient(#174650 0 49.6%,#9aeeed 49.6% 50.4%,#142d23 50.4%);
+}
+.playing.vtol-mode:not(.cockpit) .attitude-dial::after{border-color:#9aeeed66}
+.playing.vtol-mode:not(.cockpit) .attitude-mark,
+.playing.vtol-mode:not(.cockpit) .attitude-mark::after{border-color:var(--hud-green);filter:drop-shadow(0 0 3px #8dffc066)}
+.playing.vtol-mode:not(.cockpit) .vtol-telemetry{
+  grid-column:1 / -1;grid-row:3;display:grid;grid-template-columns:.85fr 1.4fr .9fr .85fr;
+  gap:8px;padding-top:10px;border-top:1px solid var(--hud-line);color:var(--hud-muted);
+}
+.playing.vtol-mode:not(.cockpit) .vtol-telemetry>span{flex-direction:column;gap:5px;font-size:8px;letter-spacing:.7px}
+.playing.vtol-mode:not(.cockpit) .vtol-telemetry b{font-size:11px;font-weight:400;color:var(--hud-cyan);letter-spacing:0;white-space:nowrap}
+.playing.vtol-mode:not(.cockpit) .location-pill{
+  position:static;grid-column:1 / -1;grid-row:4;gap:7px;min-width:0;padding:0;
+  border:0;background:none;border-radius:0;backdrop-filter:none;font-size:9px;color:var(--hud-muted);
+}
+.playing.vtol-mode:not(.cockpit) .location-pill .live-dot{width:4px;height:4px;background:var(--hud-green);box-shadow:0 0 6px var(--hud-green)}
+.playing.vtol-mode:not(.cockpit) #location{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.playing.vtol-mode:not(.cockpit) .pill-divider{margin-left:auto;background:var(--hud-line);flex-shrink:0}
+.playing.vtol-mode:not(.cockpit) #altitude{color:var(--hud-cyan);white-space:nowrap}
+
+/* Compact weapons over navigation, anchored as a single stack. */
+.playing.vtol-mode:not(.cockpit) .tactical-stack{
+  display:flex;flex-direction:column;gap:8px;position:fixed;
+  right:var(--hud-edge);bottom:var(--hud-bottom);width:224px;
+}
+.playing.vtol-mode:not(.cockpit) :is(.weapon-card,.minimap-wrap){
+  position:static;width:100%;padding:12px;min-width:0;
+}
+.playing.vtol-mode:not(.cockpit) .weapon-heading{gap:8px}
+.playing.vtol-mode:not(.cockpit) .weapon-heading>div{display:flex;gap:8px;align-items:center}
+.playing.vtol-mode:not(.cockpit) .weapon-heading small{margin:0;font-size:7px;letter-spacing:0;color:var(--hud-muted)}
+.playing.vtol-mode:not(.cockpit) #vtol-camera-label{color:var(--hud-cyan);font-size:7px;letter-spacing:1px}
+.playing.vtol-mode:not(.cockpit) .weapon-type{
+  align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-color:var(--hud-line);font-size:10px;letter-spacing:.3px;
+}
+.playing.vtol-mode:not(.cockpit) .weapon-type>b{font-weight:400}
+.playing.vtol-mode:not(.cockpit) #weapon-ammo{font-size:13px;line-height:1;white-space:nowrap;color:var(--hud-cyan)}
+.playing.vtol-mode:not(.cockpit) .weapon-slots{gap:4px;margin-top:10px}
+.playing.vtol-mode:not(.cockpit) .weapon-slots button{
+  padding:6px 3px;gap:3px;border:1px solid var(--hud-line);border-radius:3px;
+  background:transparent;color:var(--hud-muted);font:9px Consolas,"SFMono-Regular",Menlo,monospace;
+}
+.playing.vtol-mode:not(.cockpit) .weapon-slots button[aria-pressed=true]{
+  color:var(--hud-green);background:#8dffc018;border-color:#8dffc078;text-shadow:0 0 7px #8dffc050;
+}
+.playing.vtol-mode:not(.cockpit) .weapon-slots button:hover{border-color:var(--hud-green);color:var(--hud-green)}
+.playing.vtol-mode:not(.cockpit) .weapon-slots kbd{min-width:11px;padding:0;font-size:9px;box-shadow:none}
+.playing.vtol-mode:not(.cockpit) .weapon-stats{margin-top:10px;font-size:7px;letter-spacing:.6px;color:var(--hud-muted)}
+.playing.vtol-mode:not(.cockpit) .weapon-stats b{font-size:10px;margin-left:3px;color:var(--hud-cyan)}
+.playing.vtol-mode:not(.cockpit) .weapon-hint{margin-top:7px;color:var(--hud-muted);font-size:8px;line-height:1.3}
+.playing.vtol-mode:not(.cockpit) .ammo-bar{margin-top:8px;height:3px;background:#8dffc018}
+.playing.vtol-mode:not(.cockpit) #ammo-fill{background:var(--hud-green);box-shadow:0 0 6px #8dffc066}
+.playing.vtol-mode:not(.cockpit).weapon-reloading :is(#weapon-ammo,#weapon-hint){color:#ffd095}
+.playing.vtol-mode:not(.cockpit).weapon-reloading #ammo-fill{background:#ffd095}
+.playing.vtol-mode:not(.cockpit) .vtol-utilities{
+  display:flex;flex-direction:column;gap:9px;margin-top:10px;padding-top:9px;border-top:1px solid var(--hud-line);
+}
+.playing.vtol-mode:not(.cockpit) :is(#flare-status,#thruster-status){font-size:9px;color:var(--hud-green)}
+.thruster-heading{display:flex;justify-content:space-between;align-items:center;gap:5px}
+#thruster-recharge{color:var(--hud-muted);font-size:8px;white-space:nowrap}
+.thruster-charges{display:flex;gap:4px;margin-top:6px}
+.thruster-charges i{position:relative;flex:1;height:4px;background:#8dffc018;border-radius:1px;overflow:hidden}
+.thruster-charges i::after{content:"";position:absolute;inset:0;background:#9aeeed66;transform:scaleX(var(--charge,1));transform-origin:left}
+.thruster-charges i.charged::after{background:var(--hud-green);box-shadow:0 0 5px var(--hud-green)}
+.playing.vtol-mode:not(.cockpit) :is(#flare-status.cooling,#thruster-status.cooling){color:#ffd095}
+.playing.vtol-mode:not(.cockpit) #thruster-status.firing{color:#e3ffff;text-shadow:0 0 8px #65dfff}
+.playing.vtol-mode:not(.cockpit) #thruster-status.misfire{color:#eadfff;text-shadow:0 0 8px #a7c5ff}
+.playing.vtol-mode:not(.cockpit) .map-heading{font-size:9px;letter-spacing:1px}
+.playing.vtol-mode:not(.cockpit) .map-heading>span:last-child{color:var(--hud-cyan);font-size:9px}
+.playing.vtol-mode:not(.cockpit) #minimap{
+  height:auto;aspect-ratio:340 / 220;margin:7px 0;opacity:.8;
+  background:linear-gradient(#8dffc008 1px,transparent 1px),linear-gradient(90deg,#8dffc008 1px,transparent 1px);
+  background-size:22px 22px;border:1px solid #8dffc018;border-radius:2px;
+}
+.playing.vtol-mode:not(.cockpit) .map-legend{color:var(--hud-muted);font-size:8px;gap:8px}
+.playing.vtol-mode:not(.cockpit) .map-legend>span:nth-child(2){display:none}
+.playing.vtol-mode:not(.cockpit) .map-legend i{background:var(--hud-green);box-shadow:0 0 4px var(--hud-green)}
+.playing.vtol-mode:not(.cockpit) .map-credit{color:var(--hud-muted);font-size:6px;margin-top:8px}
+.playing.vtol-mode:not(.cockpit) #vtol-integrity{bottom:var(--hud-bottom);background:var(--hud-bg);backdrop-filter:blur(6px)}
+.playing.vtol-mode:not(.cockpit) .controls-bar{bottom:18px;padding:9px 12px;gap:9px;max-width:calc(100vw - 48px)}
+.playing.vtol-mode:not(.cockpit) .controls-bar>span{color:var(--hud-muted);font-size:8px}
+.playing.vtol-mode:not(.cockpit) .controls-bar kbd{
+  font-family:inherit;font-size:9px;height:18px;min-width:17px;padding:0 4px;
+  color:var(--hud-green);border-color:var(--hud-line);border-radius:2px;background:#8dffc008;box-shadow:none;
+}
+.playing.vtol-mode:not(.cockpit) #vtol-capture-hint{z-index:4;max-width:calc(100vw - 40px)}
+.playing.vtol-mode:not(.cockpit) #vtol-capture-hint b{font:18px Consolas,monospace;text-shadow:0 0 8px #8dffc060}
+.playing.vtol-mode:not(.cockpit) #vtol-capture-hint :is(span,small){color:var(--hud-muted)}
+.playing.vtol-mode:not(.cockpit) .toast{bottom:35%;font-size:11px}
+
+@media (min-width:761px) and (max-width:1000px){
+  .playing.vtol-mode:not(.cockpit){--hud-bottom:102px;--hud-edge:20px}
+  .playing.vtol-mode:not(.cockpit) .flight-panel{width:250px}
+  .playing.vtol-mode:not(.cockpit) .tactical-stack{width:210px}
+  .playing.vtol-mode:not(.cockpit) #vtol-integrity{width:174px}
+}
+@media (max-width:760px){
+  .playing.vtol-mode:not(.cockpit){--hud-edge:12px;--hud-bottom:16px;--hud-column:calc((100vw - 36px) / 2)}
+  .playing.vtol-mode:not(.cockpit) .topbar{height:64px}
+  .playing.vtol-mode:not(.cockpit) .controls-bar{display:none}
+  .playing.vtol-mode:not(.cockpit) .flight-panel{width:var(--hud-column);max-width:270px;padding:10px;grid-template-columns:minmax(0,1fr) 56px;gap:12px 6px}
+  .playing.vtol-mode:not(.cockpit) .flight-heading:not(.hidden){font-size:7px;letter-spacing:.4px;padding-bottom:8px}
+  .playing.vtol-mode:not(.cockpit) #flight-heading{font-size:9px}
+  .playing.vtol-mode:not(.cockpit) #flight-state{font-size:6px;letter-spacing:0}
+  .playing.vtol-mode:not(.cockpit) .speed{font-size:8px}
+  .playing.vtol-mode:not(.cockpit) .speed strong{font-size:32px;margin-right:1px}
+  .playing.vtol-mode:not(.cockpit) .attitude-dial{width:56px;height:56px}
+  .playing.vtol-mode:not(.cockpit) .attitude-dial::after{inset:5px}
+  .playing.vtol-mode:not(.cockpit) .vtol-telemetry{grid-template-columns:1fr 1fr;gap:8px}
+  .playing.vtol-mode:not(.cockpit) .vtol-telemetry>span{flex-direction:row;align-items:center;font-size:6px;letter-spacing:0;gap:3px}
+  .playing.vtol-mode:not(.cockpit) .vtol-telemetry b{font-size:8px}
+  .playing.vtol-mode:not(.cockpit) .location-pill{font-size:7px;gap:5px}
+  .playing.vtol-mode:not(.cockpit) .location-pill .live-dot{display:none}
+  .playing.vtol-mode:not(.cockpit) .tactical-stack{width:var(--hud-column);max-width:224px;gap:7px}
+  .playing.vtol-mode:not(.cockpit) :is(.weapon-card,.minimap-wrap){padding:9px}
+  .playing.vtol-mode:not(.cockpit) .weapon-heading{font-size:8px;letter-spacing:.8px}
+  .playing.vtol-mode:not(.cockpit) .weapon-heading small{display:none}
+  .playing.vtol-mode:not(.cockpit) .weapon-type{font-size:8px;letter-spacing:0;gap:3px}
+  .playing.vtol-mode:not(.cockpit) #weapon-ammo{font-size:11px}
+  .playing.vtol-mode:not(.cockpit) .weapon-slots button{font-size:7px;padding:6px 2px;gap:2px}
+  .playing.vtol-mode:not(.cockpit) .weapon-slots kbd{font-size:8px;min-width:8px}
+  .playing.vtol-mode:not(.cockpit) .weapon-stats{font-size:6px;letter-spacing:0}
+  .playing.vtol-mode:not(.cockpit) .weapon-stats b{font-size:9px;margin-left:2px}
+  .playing.vtol-mode:not(.cockpit) :is(#flare-status,#thruster-status){font-size:8px}
+  .playing.vtol-mode:not(.cockpit) #thruster-recharge{font-size:7px}
+  .playing.vtol-mode:not(.cockpit) .map-heading{font-size:8px}
+  .playing.vtol-mode:not(.cockpit) .map-legend{font-size:6px}
+  .playing.vtol-mode:not(.cockpit) .map-credit{font-size:5px;line-height:1.4}
+  .playing.vtol-mode:not(.cockpit) #vtol-integrity{
+    left:var(--hud-edge);right:auto;transform:none;bottom:224px;width:var(--hud-column);max-width:270px;
+  }
+}
+@media (min-width:761px) and (max-height:600px){
+  .playing.vtol-mode:not(.cockpit){--hud-bottom:90px}
+  .playing.vtol-mode:not(.cockpit) .weapon-stats,
+  .playing.vtol-mode:not(.cockpit) .weapon-hint{display:none}
+  .playing.vtol-mode:not(.cockpit) #minimap{height:75px;aspect-ratio:auto}
+  .playing.vtol-mode:not(.cockpit) .controls-bar{bottom:8px;padding:6px 10px}
+}
+@media (max-width:380px){
+  .playing.vtol-mode:not(.cockpit) .flight-heading:not(.hidden){font-size:6px;letter-spacing:0}
+  .playing.vtol-mode:not(.cockpit) .speed{font-size:6px}
+  .playing.vtol-mode:not(.cockpit) .speed strong{font-size:25px}
+  .playing.vtol-mode:not(.cockpit) .weapon-slots{gap:2px}
+  .playing.vtol-mode:not(.cockpit) .weapon-slots button{font-size:6px}
+  .playing.vtol-mode:not(.cockpit) #thruster-recharge{font-size:6px}
+  .playing.vtol-mode:not(.cockpit) .vtol-telemetry{grid-template-columns:.8fr 1.2fr}
+  .playing.vtol-mode:not(.cockpit) .integrity-reading{gap:3px}
+  .playing.vtol-mode:not(.cockpit) .integrity-reading>span{font-size:7px;letter-spacing:.5px}
+}

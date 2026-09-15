@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#eceee3" />
+    <meta name="description" content="A cozy pigeon flight adventure in Berlin and Frankfurt. Choose your city, explore its skyline, and take the scenic route." />
+    <title>Little Wings — Two cities, one pigeon</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2220%22%20fill%3D%22%23ebeee2%22%2F%3E%3Cpath%20d%3D%22M12%2044c15%205%2030-3%2032-20%201-8-6-13-11-9-4%203-4%208-3%2012-10-1-16%204-20%2010l12%202%22%20fill%3D%22%23819a8c%22%2F%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2221%22%20r%3D%222%22%20fill%3D%22%23253e36%22%2F%3E%3Cpath%20d%3D%22m44%2021%209%205-10%203%22%20fill%3D%22%23c5a66c%22%2F%3E%3C%2Fsvg%3E" type="image/svg+xml" />
+  </head>
+  <body>
+    <canvas id="world" aria-label="3D pigeon flight game set around EDGE East Side Berlin"></canvas>
+    <div id="app">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Little Wings home" id="home">
+          <svg class="brand-bird" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M8 30c9 4 20 0 22-11 1-6-2-10-6-9-4 0-5 4-5 8C13 17 8 20 5 24l9 1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="m29 14 7 3-6 2M17 31l-2 6m8-8 1 7M15 23c4 1 7 0 10-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="25" cy="14.5" r="1.2" fill="currentColor"/></svg>
+          <span>little wings<span class="brand-sub">A LITTLE PIGEON ADVENTURE</span></span>
+        </a>
+        <div class="top-actions">
+          <span class="weather"><span class="sun-icon">☼</span> A good day to fly</span>
+          <button class="icon-button" id="sound" aria-label="Enable ambient sound" title="Ambient sound" aria-pressed="false"></button>
+          <button class="icon-button" id="help" aria-label="Show flight controls" title="Flight controls">?</button>
+          <button class="icon-button hidden" id="pause" aria-label="Pause game" title="Pause (Esc)">Ⅱ</button>
+        </div>
+      </header>
+
+      <section class="welcome" id="welcome" aria-label="Welcome to Little Wings">
+        <div class="welcome-copy">
+          <div class="eyebrow"><span></span> A FRESH PERSPECTIVE</div>
+          <h1>Small bird.<br />Big <em>cities.</em></h1>
+          <p>Find your skyline.<br />Take the scenic route.</p>
+          <div class="departure"><small>YOUR NEXT LITTLE ESCAPE</small><strong id="selected-map">Berlin · EDGE East Side</strong><p id="map-description"></p></div>
+          <button class="primary-button" id="start">Let’s fly <span>↗</span></button>
+          <button class="vtol-start" id="start-vtol"><span>⌖</span> Deploy cyborg VTOL <small>HELICOPTER MODE · PC</small></button>
+          <button class="text-button benchmark-start" id="start-benchmark">30-second benchmark flight ↗</button>
+          <div class="welcome-hint"><kbd>Space</kbd><span>A wingbeat starts the adventure.</span></div>
+        </div>
+        <div class="map-choices" role="group" aria-label="Choose your city">
+          <div class="map-choices-heading"><span>CHOOSE YOUR CITY</span><span>01 — 02</span></div>
+          <button class="map-card berlin-card" data-map-choice="berlin" aria-pressed="true">
+            <span class="map-art berlin-art" aria-hidden="true"></span><span class="map-number">01 / BERLIN</span><span class="map-check">✓</span>
+            <span class="map-card-caption"><span><strong>Berlin</strong><small>EDGE EAST SIDE · FRIEDRICHSHAIN</small></span><span class="map-arrow">↗</span></span>
+          </button>
+          <button class="map-card frankfurt-card" data-map-choice="frankfurt" aria-pressed="false">
+            <span class="map-art frankfurt-art" aria-hidden="true"></span><span class="map-number">02 / FRANKFURT</span><span class="map-check">✓</span>
+            <span class="map-card-caption"><span><strong>Frankfurt</strong><small>TAUNUSTURM · BANKENVIERTEL</small></span><span class="map-arrow">↗</span></span>
+          </button>
+          <p class="map-footnote"><span class="live-dot"></span> Both cities, a world of their own. Only your chosen city loads.</p>
+        </div>
+      </section>
+
+      <div class="scene-label" id="scene-label"><span class="label-line"></span><span>EDGE EAST SIDE<span>Friedrichshain, Berlin</span></span><span class="label-dot"></span></div>
+      <footer class="welcome-footer" id="welcome-footer">
+        <div class="coordinate"><span class="tiny-cross">⌖</span> 52.506° N &nbsp; 13.449° E</div>
+        <div class="footer-note"><span class="live-dot"></span> A little escape above the everyday</div>
+      </footer>
+
+      <section class="hud hidden" id="hud" aria-label="Game status">
+        <div class="quest-card">
+          <div class="quest-heading"><span class="crumb-icon">✦</span><span>A little breadventure</span><span id="crumb-count">0 / 12</span></div>
+          <p id="quest-hint">Follow the golden crumbs to the open terrace.</p>
+          <div class="quest-progress"><span id="quest-progress"></span></div>
+        </div>
+        <div class="explore-actions">
+          <button id="office-jump" class="pill-button" title="Start by the office terrace"><span>⌂</span> Visit the office</button>
+          <button id="roof-jump" class="pill-button" title="Start on the roof garden"><span>↟</span> Rooftop</button>
+          <button id="station-jump" class="pill-button" title="Visit Warschauer Straße station"><span>▤</span> Station</button>
+          <button id="bridge-jump" class="pill-button" title="Visit Oberbaumbrücke"><span>⌒</span> Bridge</button>
+          <button id="mode-switch" class="pill-button mode-button">Cyborg VTOL</button>
+        </div>
+        <div class="flight-panel" aria-label="Flight instruments">
+          <div class="vtol-only flight-heading"><span>FLIGHT VECTOR</span><span>HDG <b id="flight-heading">000°</b></span></div>
+          <div class="flight-readout"><span id="flight-state">HOVERING</span><span class="speed"><strong id="speed">0</strong> km/h</span><div class="momentum"><span id="momentum-fill"></span></div><div class="flap-hint"><span id="flap-indicator">⌁</span> Tap <kbd>Space</kbd> to flap</div><span id="flight-note">Take your time. The city can wait.</span></div>
+          <div class="vtol-only attitude-wrap">
+            <div class="attitude-dial" role="img" aria-label="Aircraft pitch and bank"><div id="artificial-horizon"></div><i class="attitude-mark"></i></div>
+            <div class="vtol-telemetry"><span>LIFT <b id="collective">100%</b></span><span>V/S <b id="vertical-speed">0.0 m/s</b></span><span>PITCH <b id="vtol-pitch">0°</b></span><span>BANK <b id="vtol-bank">0°</b></span></div>
+          </div>
+          <div class="location-pill"><span class="live-dot"></span><span id="location">Above Friedrichshain</span><span class="pill-divider"></span><span id="altitude">80 m</span></div>
+        </div>
+        <div class="tactical-stack">
+        <div class="vtol-only weapon-card" aria-label="Weapons and countermeasures">
+          <div class="weapon-heading"><div>ARMAMENT <small>PJN–01</small></div><span id="vtol-camera-label">CHASE</span></div>
+          <div class="weapon-type"><b id="weapon-name">POOP CANNON</b><span id="weapon-ammo">20 / 20</span></div>
+          <div class="weapon-slots" aria-label="Select poop weapon">
+            <button id="weapon-1" aria-pressed="true"><kbd>1</kbd> Cannon</button>
+            <button id="weapon-2" aria-pressed="false" title="Pigeon rocket"><kbd>2</kbd> Rocket</button>
+            <button id="weapon-3" aria-pressed="false" title="Poop bomb — gravity drop"><kbd>3</kbd> Bomb</button>
+          </div>
+          <div class="weapon-stats"><span>FIRED <b id="shots-fired">0</b></span><span>HITS <b id="splat-count">0</b></span><span>MESS <b id="mess-damage">0</b></span></div>
+          <div class="weapon-hint" id="weapon-hint">10 mess · Rapid fire</div>
+          <div class="ammo-bar" aria-hidden="true"><span id="ammo-fill"></span></div>
+          <div class="vtol-utilities">
+            <div id="flare-status">X · FLARES READY</div>
+            <div class="thruster-readout">
+              <div class="thruster-heading"><span id="thruster-status">Q · THRUST 5/5</span><span id="thruster-recharge">READY</span></div>
+              <div class="thruster-charges" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="minimap-wrap"><div class="map-heading"><span id="map-title">YOUR LITTLE WORLD</span><span>N <i class="north-arrow">↑</i></span></div><canvas id="minimap" width="340" height="250" aria-label="Map showing the pigeon, tower, and remaining crumbs"></canvas><div class="map-legend"><span><i></i> You</span><span><i></i> Crumbs</span><span id="zone-label">Friedrichshain</span></div><a class="map-credit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">Map data © OpenStreetMap contributors</a></div>
+        </div>
+        <div class="controls-bar"><span><kbd>Space</kbd> Flap</span><span><kbd>W</kbd><kbd>S</kbd> Aim up / down</span><span><kbd>A</kbd><kbd>D</kbd> Turn</span><span><kbd>Shift</kbd> Brake</span><span><kbd>E</kbd> Perch</span><span><kbd>R</kbd> Terrace</span></div>
+        <div class="touch-controls" id="touch-controls">
+          <div class="touch-pad"><button data-key="KeyW" aria-label="Aim up">↑</button><button data-key="KeyA" aria-label="Turn left">←</button><button data-key="KeyS" aria-label="Aim down">↓</button><button data-key="KeyD" aria-label="Turn right">→</button></div>
+          <div class="touch-height"><button data-key="Space" class="touch-flap">Flap ⌁</button><button data-key="ShiftLeft">Brake</button><button data-key="KeyE">Perch</button></div>
+        </div>
+      </section>
+      <div class="vtol-only" id="vtol-integrity" role="meter" aria-label="Airframe integrity" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+        <div class="integrity-reading"><span>AIRFRAME</span><strong id="vtol-health">100%</strong></div>
+        <div class="integrity-track" aria-hidden="true"><span id="integrity-fill"></span></div>
+      </div>
+      <div class="vtol-only" id="player-hit-overlay" aria-hidden="true"></div>
+      <div class="vtol-only" id="vtol-reticle"><span></span><i></i></div>
+      <div class="vtol-only" id="vtol-capture-hint"><b>Ready for takeoff.</b><span>Click the scene to capture your mouse.</span><small>W / S lift · Space / E pitch up / down · Mouse pitch / roll · Esc releases</small></div>
+      <div id="cockpit-frame" aria-hidden="true">
+        <div class="canopy-glass"></div>
+        <div class="canopy-ident"><span>PJN–01</span> / PILOT OPTICS <small>BERLIN · FRIEDRICHSHAIN</small></div>
+        <div class="cockpit-controls">W / S · LIFT <i>│</i> SPACE / E · PITCH ↑ / ↓ <i>│</i> SHIFT · BOOST <i>│</i> X · FLARES <i>│</i> Q · THRUST <i>│</i> LMB · FIRE / DROP <i>│</i> 1 / 2 / 3 · WEAPONS <i>│</i> R · RELOAD <i>│</i> RMB · ZOOM <i>│</i> C · CHASE <i>│</i> ESC · MENU</div>
+      </div>
+      <div id="cockpit-aim" class="hidden" aria-label="Cockpit flight telemetry">
+        <div class="optics-heading"><span>HDG</span> <b id="cockpit-heading">000°</b><i>┆ ┆ ┆ ▼ ┆ ┆ ┆</i></div>
+        <div class="optics-speed"><small>AIRSPEED · KM/H</small><strong id="cockpit-speed">000</strong><span>LIFT <b id="cockpit-lift">100%</b> <i id="cockpit-afterburner" title="Twin afterburners">AB</i></span></div>
+        <div class="optics-altitude"><small>ALTITUDE · M</small><strong id="cockpit-altitude">110</strong><span>V/S <b id="cockpit-vs">+0.0</b> m/s</span></div>
+        <div id="cockpit-flares">X · FLARES READY</div>
+        <div id="cockpit-thrusters">Q · THRUST 5/5</div>
+        <div class="optics-attitude"><span>PITCH <b id="cockpit-pitch">+00°</b></span><span>BANK <b id="cockpit-bank">+00°</b></span></div>
+        <div class="optics-weapon"><span id="cockpit-weapon">1 / CANNON 20/20</span><span id="cockpit-zoom">OPTICS 1.00×</span></div>
+      </div>
+      <div id="crash-overlay" class="hidden" role="status">
+        <small>PJN–01 / IMPACT DETECTED</small>
+        <h2>Airframe lost.</h2>
+        <p id="respawn-countdown">Rebuilding · 2.0 s</p>
+      </div>
+      <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+      <div class="waypoint hidden" id="waypoint"><span>⌂</span><div>THE OPEN TERRACE<small id="waypoint-distance"></small></div></div>
+      <div class="loading" id="loading"><span class="loading-bird">✦</span> Finding a nice breeze…</div>
+      <div class="error-screen hidden" id="error" role="alert"><h2>A little turbulence.</h2><p id="error-message">This adventure needs a browser with WebGL 2 enabled.</p><button class="primary-button" id="retry-map">Reload city selection ↗</button></div>
+    </div>
+
+    <dialog id="modal" aria-labelledby="modal-title">
+      <button class="modal-close icon-button" id="close-modal" aria-label="Close dialog">×</button>
+      <div id="modal-content"></div>
+    </dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

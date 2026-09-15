@@ -1,0 +1,22 @@
+Copyright (c) 2026 [COPYRIGHT HOLDER]. All rights reserved.
+
+This repository is shared for viewing and personal evaluation only. No license
+is granted to copy, modify, distribute, sublicense or sell the source code,
+artwork, audio synthesis or other original content in this repository, in whole
+or in part, without prior written permission from the copyright holder.
+
+Third-party components are not covered by the notice above and remain under
+their own licenses:
+
+- three.js (https://threejs.org) — MIT License. Installed via npm; see
+  node_modules/three/LICENSE after `npm install`.
+- Vite (https://vitejs.dev) — MIT License. Development dependency; see
+  node_modules/vite/LICENSE.md after `npm install`.
+- Manrope and DM Sans fonts (public/fonts/) — SIL Open Font License 1.1. The
+  license texts are bundled next to the font files.
+- Map data in src/neighborhood-data.json and src/maps/frankfurt-data.json is
+  derived from OpenStreetMap, © OpenStreetMap contributors, and is made
+  available under the Open Database License (ODbL) 1.0:
+  https://opendatacommons.org/licenses/odbl/1-0/
+  Any use of these two data files must comply with the ODbL, including
+  attribution and share-alike for derivative databases.

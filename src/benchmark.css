@@ -1,0 +1,27 @@
+.benchmark-start{display:block;margin-top:16px;font-size:12px;color:#426656}
+.benchmark-menu{margin:20px 0;padding:15px 0;border-top:1px solid #ced6c6;border-bottom:1px solid #ced6c6}
+.benchmark-menu p{margin:8px 0 0;font-size:12px}
+#benchmark-flight{position:fixed;z-index:30;left:50%;bottom:28px;transform:translateX(-50%);width:min(660px,calc(100vw - 32px));display:flex;align-items:center;gap:20px;background:rgba(242,245,231,.96);color:#2d4c3e;border:1px solid #a9bda8;border-radius:16px;padding:18px 22px;box-shadow:0 8px 36px #122c3429}
+#benchmark-flight div{flex:1;display:grid;gap:5px}#benchmark-flight small{font-size:9px;letter-spacing:2px}#benchmark-flight strong{font-size:17px}#benchmark-flight span{font-size:11px}
+#benchmark-flight progress{position:absolute;bottom:0;left:14px;width:calc(100% - 28px);height:4px;accent-color:#4b8067}
+#benchmark-flight button{padding:10px 14px;white-space:nowrap}
+.benchmark-active .topbar,.benchmark-active .explore-actions,.benchmark-active .weapon-slots,.benchmark-active .controls-bar,.benchmark-active .touch-controls,.benchmark-active .cockpit-controls,.benchmark-active #vtol-capture-hint{visibility:hidden!important}
+.benchmark-active #app{pointer-events:none!important}
+#benchmark-results{width:min(780px,calc(100vw - 32px));max-height:calc(100dvh - 36px);padding:32px 38px;border-radius:24px;overflow:auto}
+#benchmark-results h2{font-size:32px;margin-bottom:8px}
+#benchmark-results .benchmark-subtitle{font-size:12px;margin:0 0 24px}
+.benchmark-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.benchmark-stats>div{padding:16px 14px;background:#e5eadb;border-radius:12px;display:flex;flex-direction:column;gap:7px}
+.benchmark-stats small{font-size:10px;color:#52705d}.benchmark-stats strong{font:26px Consolas,ui-monospace,monospace;letter-spacing:-1px;color:#2e5341}
+.benchmark-stats span{font-size:10px;color:#5c7564}
+.benchmark-chart{margin:22px 0 18px}.benchmark-chart>div{display:flex;justify-content:space-between;font-size:9px;letter-spacing:.4px;color:#64806c}
+.benchmark-chart svg{display:block;width:100%;height:90px}
+.benchmark-table{border-collapse:collapse;width:100%;font-size:12px;font-variant-numeric:tabular-nums}
+.benchmark-table th{font-weight:500;color:#5f7968;font-size:10px}.benchmark-table th,.benchmark-table td{text-align:right;padding:10px 4px;border-bottom:1px solid #d9dfd0}
+.benchmark-table th:first-child,.benchmark-table td:first-child{text-align:left}
+#benchmark-results .benchmark-baseline{font-size:12px;background:#e6ebd8;padding:14px;border-radius:8px}
+.benchmark-details summary{cursor:pointer;font-size:12px;color:#4b6a53}.benchmark-details p{font-size:11px!important}
+.benchmark-exports{display:flex;align-items:center;flex-wrap:wrap;gap:12px}.benchmark-exports button{font-size:12px;padding:10px 14px}
+#benchmark-results .benchmark-feedback{min-height:14px;margin:8px 0;font-size:11px}
+.benchmark-finished #app{pointer-events:none}
+@media(max-width:600px){#benchmark-results{padding:24px 20px}.benchmark-stats{grid-template-columns:repeat(2,minmax(0,1fr))}#benchmark-flight{padding:14px;gap:10px}#benchmark-flight strong{font-size:14px}#benchmark-results h2{font-size:26px}}
